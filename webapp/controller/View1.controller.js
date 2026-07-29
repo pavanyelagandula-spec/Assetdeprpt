@@ -21,16 +21,26 @@ sap.ui.define([
             // Model may not be propagated yet at onInit; defer until route is matched
             const oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("RouteView1").attachPatternMatched(this._onRouteMatched, this);
+            this.byId("assetFilterBar").attachSearch(this.onFilterSearch, this);
+            this.byId("assetFilterBar").attachReset(this.onFilterReset, this);
+            this.byId("reportTypeGroup").attachSelect(this.onReportTypeSelect, this);
             //end
         },
 
         _onRouteMatched() {
-            const oModel = this.getView().getModel();
-            oModel.read("/ZI_FI_ASSET_DEPRECIATION", {
+            this._aSourceData = [];
+            this._buildPivotTable(this._aSourceData);
+        },
+
+        _loadData() {
+            const sFilter = this._getODataFilterExpression();
+            this.getView().getModel().read("/ZI_FI_ASSET_DEPRECIATION", {
+                urlParameters: sFilter ? { "$filter": sFilter } : {},
                 success: (oData) => {
                     this._aSourceData = oData.results;
-                    this._buildPivotTable(this._applyFilters(this._aSourceData));
-                }
+                    this._buildPivotTable(this._aSourceData);
+                },
+                error: () => MessageToast.show("Unable to load filtered asset-depreciation data.")
             });
         },
 
@@ -144,20 +154,88 @@ sap.ui.define([
 
 
         onFilterSearch() {
-            this._buildPivotTable(this._applyFilters(this._aSourceData || []));
+            if (this._validateMandatoryFilters()) {
+                this._hasExecutedSearch = true;
+                this._loadData();
+            }
+        },
+
+        onReportTypeSelect() {
+            if (this._hasExecutedSearch && this._validateMandatoryFilters()) {
+                this._loadData();
+            }
+        },
+
+        _validateMandatoryFilters() {
+            const aMandatoryFields = [
+                ["companyCodeFilter", "Company Code"],
+                ["ledgerFilter", "Ledger"],
+                ["depreciationAreaFilter", "Depreciation Area"],
+                ["keyDateFilter", "Key Date"],
+                ["fiscalYearFilter", "Fisc. Year of Ledger"],
+                ["toPeriodFilter", "To Period"],
+                ["displayCurrencyFilter", "Display Currency"]
+            ];
+            const aMissingLabels = aMandatoryFields.filter(([sControlId]) => {
+                const oControl = this.byId(sControlId);
+                const bHasValue = oControl.getTokens ? oControl.getTokens().length > 0 : Boolean(oControl.getValue().trim());
+                oControl.setValueState(bHasValue ? "None" : "Error");
+                return !bHasValue;
+            }).map(([, sLabel]) => sLabel);
+
+            if (aMissingLabels.length) {
+                MessageToast.show("Enter all mandatory fields: " + aMissingLabels.join(", "));
+                return false;
+            }
+            return true;
         },
 
         onFilterReset() {
-            this._buildPivotTable(this._aSourceData || []);
+            setTimeout(() => {
+                this._hasExecutedSearch = false;
+                this._aSourceData = [];
+                this._buildPivotTable(this._aSourceData);
+            }, 0);
+        },
+
+        _getODataFilterExpression() {
+            const aFieldMappings = [
+                ["CompanyCode", "companyCodeFilter"],
+                ["ledger", "ledgerFilter"],
+                ["DepreciationArea", "depreciationAreaFilter"],
+                ["keyDate", "keyDateFilter"],
+                ["FiscalYear", "fiscalYearFilter"],
+                ["to_period", "toPeriodFilter"],
+                ["DepreciationVariant", "depreciationVariantFilter"],
+                ["display_currency", "displayCurrencyFilter"],
+                ["fixed_asset", "assetIdFilter"],
+                ["asset_id", "assetSubnumberFilter"],
+                ["asset_class", "assetClassFilter"]
+            ];
+
+            const aFilterExpressions = aFieldMappings.map(([sProperty, sControlId]) => {
+                const oControl = this.byId(sControlId);
+                const aValues = oControl.getTokens ? oControl.getTokens().map((oToken) => oToken.getKey()) : [oControl.getValue().trim()];
+                const aExpressions = aValues.filter(Boolean).map((sValue) => {
+                    const sLiteral = sProperty === "keyDate"
+                        ? "datetime\x27" + sValue + "T00:00:00\x27"
+                        : "\x27" + String(sValue).replace(/\x27/g, "\x27\x27") + "\x27";
+                    return sProperty + " eq " + sLiteral;
+                });
+                return aExpressions.length > 1 ? "(" + aExpressions.join(" or ") + ")" : aExpressions[0];
+            }).filter(Boolean);
+            const sReportType = this.byId("reportTypeGroup").getSelectedButton().getText();
+            aFilterExpressions.push("report_type eq \x27" + ({ Monthly: "1", Quarterly: "2", Yearly: "3" })[sReportType] + "\x27");
+            return aFilterExpressions.join(" and ");
         },
 
         _applyFilters(aData) {
             const aFilters = [
-                ["asset_id", "assetIdFilter"],
+                ["fixed_asset", "assetIdFilter"],
                 ["CompanyCode", "companyCodeFilter"],
                 ["ledger", "ledgerFilter"],
                 ["DepreciationArea", "depreciationAreaFilter"],
-                ["KeyDate", "keyDateFilter"],
+                ["keyDate", "keyDateFilter"],
                 ["FiscalYear", "fiscalYearFilter"]
             ].map(([sProperty, sControlId]) => {
                 const oControl = this.byId(sControlId);
