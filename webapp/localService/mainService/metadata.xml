@@ -1,55 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
         <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="SAP__common"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="Org.OData.Core.V1" Alias="SAP__core"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ODM',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ODM',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.ODM.v1" Alias="SAP__ODM"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.PDF.v1" Alias="SAP__PDF"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='')/$value">
         <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
-        <Schema Namespace="cds_zsd_fi_asset_depreciation" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="cds_zsd_fi_asset_depreciation" xml:lang="en" sap:schema-version="1">
             <EntityType Name="ZI_FI_ASSET_DEPRECIATIONType" sap:label="Asset Depreciation" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="asset_id"/>
-                    <PropertyRef Name="column_Heading"/>
+                    <PropertyRef Name="row_no"/>
                 </Key>
-                <Property Name="asset_id" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Asset ID"/>
-                <Property Name="column_Heading" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Column Heading"/>
-                <Property Name="value" Type="Edm.Decimal" Precision="15" Scale="2" sap:label="value"/>
+                <Property Name="row_no" Type="Edm.Int64" Nullable="false" sap:label="Row ID"/>
+                <Property Name="asset_id" Type="Edm.String" MaxLength="20" sap:label="Asset ID"/>
+                <Property Name="column_Heading" Type="Edm.String" MaxLength="20" sap:label="Column Heading"/>
+                <Property Name="value" Type="Edm.String" MaxLength="20" sap:label="Value"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="true" sap:label="Company Code" sap:value-list="standard"/>
+                <Property Name="ledger" Type="Edm.String" MaxLength="2" sap:required-in-filter="true" sap:label="Ledger" sap:value-list="standard"/>
+                <Property Name="DepreciationArea" Type="Edm.String" MaxLength="2" sap:required-in-filter="true" sap:label="Depreciation Area" sap:value-list="standard"/>
+                <Property Name="keyDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:required-in-filter="true" sap:label="Key Date"/>
+                <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:required-in-filter="true" sap:label="Fiscal Year of Ledger" sap:quickinfo="Fiscal Year"/>
+                <Property Name="to_period" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:required-in-filter="true" sap:label="To Period" sap:quickinfo="Fiscal Year"/>
+                <Property Name="display_currency" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Display Currency" sap:quickinfo="Fiscal Year"/>
+                <Property Name="fixed_asset" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fixed Asset" sap:quickinfo="Fiscal Year"/>
+                <Property Name="asset_class" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Asset Class" sap:quickinfo="Fiscal Year"/>
+                <Property Name="report_type" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fiscal Year"/>
+            </EntityType>
+            <EntityType Name="ZI_fi_wip_ledger_f4Type" sap:label="Ledger User Value Help" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ledger"/>
+                </Key>
+                <Property Name="Ledger" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Ledger" sap:quickinfo="Ledger in General Ledger Accounting"/>
+            </EntityType>
+            <EntityType Name="ZI_VH_CompanyCodeType" sap:label="Value Help for Compnay code" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
+                <Property Name="CompanyCodeName" Type="Edm.String" MaxLength="25" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company"/>
+            </EntityType>
+            <EntityType Name="ZI_VH_DEPAREAType" sap:label="Value Help for Deprecation Area" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="DepreciationArea"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
+                <Property Name="DepreciationArea" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="NonNegative" sap:label="Depreciation Area" sap:quickinfo="Depreciation Area Real or Derived"/>
             </EntityType>
             <EntityType Name="SAP__Currency" sap:content-version="1">
                 <Key>
@@ -307,7 +340,10 @@
                 </ReferentialConstraint>
             </Association>
             <EntityContainer Name="cds_zsd_fi_asset_depreciation_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx pdf">
-                <EntitySet Name="ZI_FI_ASSET_DEPRECIATION" EntityType="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_FI_ASSET_DEPRECIATION" EntityType="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
+                <EntitySet Name="ZI_fi_wip_ledger_f4" EntityType="cds_zsd_fi_asset_depreciation.ZI_fi_wip_ledger_f4Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZI_VH_CompanyCode" EntityType="cds_zsd_fi_asset_depreciation.ZI_VH_CompanyCodeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_VH_DEPAREA" EntityType="cds_zsd_fi_asset_depreciation.ZI_VH_DEPAREAType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__FormatSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__Format" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__PDFStandardSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFStandard" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__TableColumnsSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__TableColumns" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
@@ -315,7 +351,7 @@
                 <EntitySet Name="SAP__SignatureSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__Signature" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__HierarchySet" EntityType="cds_zsd_fi_asset_depreciation.SAP__Hierarchy" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__PDFHeaderSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-                <EntitySet Name="SAP__PDFFooterSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFFooter" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="SAP__PDFFooter QSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFFooter" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__ValueHelpSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__ValueHelp" sap:content-version="1"/>
                 <EntitySet Name="SAP__Currencies" EntityType="cds_zsd_fi_asset_depreciation.SAP__Currency" sap:content-version="1"/>
                 <EntitySet Name="SAP__UnitsOfMeasure" EntityType="cds_zsd_fi_asset_depreciation.SAP__UnitOfMeasure" sap:content-version="1"/>
@@ -358,11 +394,101 @@
                     <End EntitySet="SAP__CoverPageSet" Role="ToRole_to_coverpage"/>
                 </AssociationSet>
             </EntityContainer>
-            <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/CompanyCode">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Company Code"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_VH_CompanyCode"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeName"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/ledger">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Ledger"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_fi_wip_ledger_f4"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ledger"/>
+                                    <PropertyValue Property="ValueListProperty" String="Ledger"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/DepreciationArea">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Depreciation Area"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_VH_DEPAREA"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="DepreciationArea"/>
+                                    <PropertyValue Property="ValueListProperty" String="DepreciationArea"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_FI_ASSET_DEPRECIATION" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_FI_ASSET_DEPRECIATION">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="RequiresFilter" Bool="true"/>
+                        <PropertyValue Property="RequiredProperties">
+                            <Collection>
+                                <PropertyPath>CompanyCode</PropertyPath>
+                                <PropertyPath>ledger</PropertyPath>
+                                <PropertyPath>DepreciationArea</PropertyPath>
+                                <PropertyPath>keyDate</PropertyPath>
+                                <PropertyPath>FiscalYear</PropertyPath>
+                                <PropertyPath>to_period</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_VH_CompanyCode">
                 <Annotation Term="Capabilities.DeleteRestrictions">
                     <Record>
                         <PropertyValue Property="Deletable" Bool="false"/>
@@ -379,7 +505,41 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_VH_DEPAREA">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_fi_wip_ledger_f4">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities">
                 <Annotation Term="Org.OData.Capabilities.V1.BatchSupport">
                     <Record Type="Org.OData.Capabilities.V1.BatchSupportType">
                         <PropertyValue Property="ReferencesAcrossChangeSetsSupported" Bool="true"/>
@@ -426,18 +586,51 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__Currency/CurrencyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/asset_class">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/CompanyCode">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=BUKRS&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/to_period">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_DEPAREAType/CompanyCode">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=BUKRS&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/FiscalYear">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/report_type">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_fi_wip_ledger_f4Type/Ledger">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=FINS_LEDGER&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_DEPAREAType/DepreciationArea">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=AFABER&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/fixed_asset">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_CompanyCodeType/CompanyCode">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=BUKRS&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/display_currency">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__Currency/CurrencyCode">
                 <Annotation Term="SAP__common.Text" Path="Text"/>
                 <Annotation Term="SAP__common.UnitSpecificScale" Path="DecimalPlaces"/>
                 <Annotation Term="SAP__CodeList.StandardCode" Path="ISOCode"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__UnitOfMeasure/UnitCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__UnitOfMeasure/UnitCode">
                 <Annotation Term="SAP__common.Text" Path="Text"/>
                 <Annotation Term="SAP__common.UnitSpecificScale" Path="DecimalPlaces"/>
                 <Annotation Term="SAP__CodeList.StandardCode" Path="ISOCode"/>
                 <Annotation Term="SAP__CodeList.ExternalCode" Path="ExternalCode"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__UnitOfMeasure" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__UnitOfMeasure">
                 <Annotation Term="SAP__core.AlternateKeys">
                     <Collection>
                         <Record>
@@ -453,17 +646,17 @@
                     </Collection>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__DocumentDescription/CreatedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__DocumentDescription/CreatedBy">
                 <Annotation Term="SAP__core.Computed"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__DocumentDescription/CreatedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__DocumentDescription/CreatedAt">
                 <Annotation Term="SAP__core.Computed"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__Format/TextDirectionLayout" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__Format/TextDirectionLayout">
                 <Annotation Term="SAP__core.Description" String="Setting the text direction-layout is supported"/>
                 <Annotation Term="SAP__core.LongDescription" String="PDF supports setting the text direction-layout (e.g. left-to-right or right-to-left) in the document description"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__DocumentDescription" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__DocumentDescription">
                 <Annotation Term="SAP__capabilties.InsertRestrictions">
                     <Record>
                         <PropertyValue Property="Insertable" Bool="false"/>
@@ -501,7 +694,7 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__Format/FitToPage/ErrorRecoveryBehavior" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__Format/FitToPage/ErrorRecoveryBehavior">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -510,7 +703,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__Format/FontName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__Format/FontName">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -519,7 +712,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__Format/PaperSize" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__Format/PaperSize">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -528,7 +721,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__PDFHeader/Left" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__PDFHeader/Left">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -537,7 +730,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__PDFHeader/Right" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__PDFHeader/Right">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -546,7 +739,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__PDFHeader/Center" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__PDFHeader/Center">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -555,7 +748,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__PDFFooter/Left" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__PDFFooter/Left">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -564,7 +757,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__PDFFooter/Right" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__PDFFooter/Right">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -573,7 +766,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__PDFFooter/Center" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__PDFFooter/Center">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -582,7 +775,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__TableColumns/Format/Display_Format" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__TableColumns/Format/Display_Format">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -591,7 +784,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__FileShare" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__FileShare">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -600,7 +793,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__Format/Orientation" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__Format/Orientation">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -609,7 +802,7 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="cds_zsd_fi_asset_depreciation.SAP__TableColumns/HorizontalAlignment" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.SAP__TableColumns/HorizontalAlignment">
                 <Annotation Term="SAP__common.ValueListReferences">
                     <Record>
                         <PropertyValue Property="Url" String="./$metadata"/>
@@ -618,8 +811,8 @@
                 </Annotation>
                 <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
-            <atom:link rel="self" href="/sap/opu/odata/sap/ZSB_FI_ASSET_DEPRECIATION/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
-            <atom:link rel="latest-version" href="/sap/opu/odata/sap/ZSB_FI_ASSET_DEPRECIATION/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="/sap/opu/odata/sap/ZSB_FI_ASSET_DEPRECIATION/$metadata"/>
+            <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="/sap/opu/odata/sap/ZSB_FI_ASSET_DEPRECIATION/$metadata"/>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

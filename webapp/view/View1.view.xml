@@ -3,6 +3,28 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
+            <filterbar:FilterBar id="assetFilterBar" useToolbar="true" showFilterConfiguration="false" search=".onFilterSearch" reset=".onFilterReset">
+                <filterbar:filterGroupItems>
+                    <filterbar:FilterGroupItem name="asset_id" groupName="__BASIC" label="Asset ID" visibleInFilterBar="true">
+                        <filterbar:control><Input id="assetIdFilter" placeholder="Asset ID" /></filterbar:control>
+                    </filterbar:FilterGroupItem>
+                    <filterbar:FilterGroupItem name="CompanyCode" groupName="__BASIC" label="Company Code" visibleInFilterBar="true">
+                        <filterbar:control><MultiInput id="companyCodeFilter" placeholder="Company Code" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
+                    </filterbar:FilterGroupItem>
+                    <filterbar:FilterGroupItem name="ledger" groupName="__BASIC" label="Ledger" visibleInFilterBar="true">
+                        <filterbar:control><MultiInput id="ledgerFilter" placeholder="Ledger" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
+                    </filterbar:FilterGroupItem>
+                    <filterbar:FilterGroupItem name="DepreciationArea" groupName="__BASIC" label="Depreciation Area" visibleInFilterBar="true">
+                        <filterbar:control><MultiInput id="depreciationAreaFilter" placeholder="Depreciation Area" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
+                    </filterbar:FilterGroupItem>
+                    <filterbar:FilterGroupItem name="KeyDate" groupName="__BASIC" label="Key Date" visibleInFilterBar="true">
+                        <filterbar:control><DatePicker id="keyDateFilter" valueFormat="yyyy-MM-dd" displayFormat="medium" /></filterbar:control>
+                    </filterbar:FilterGroupItem>
+                    <filterbar:FilterGroupItem name="FiscalYear" groupName="__BASIC" label="Fiscal Year" visibleInFilterBar="true">
+                        <filterbar:control><Input id="fiscalYearFilter" type="Number" placeholder="Fiscal Year" /></filterbar:control>
+                    </filterbar:FilterGroupItem>
+                </filterbar:filterGroupItems>
+            </filterbar:FilterBar>
             <ScrollContainer
                 horizontal="true"
                 vertical="false"

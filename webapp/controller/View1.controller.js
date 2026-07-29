@@ -3,8 +3,16 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/m/Column",
     "sap/m/Text",
+    "sap/ui/comp/valuehelpdialog/ValueHelpDialog",
+    "sap/m/Table",
+    "sap/m/Token",
+    "sap/m/SearchField",
+    "sap/ui/comp/filterbar/FilterBar",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/m/MessageToast",
     "sap/m/ColumnListItem"
-], (Controller, JSONModel, Column, Text, ColumnListItem) => {
+], (Controller, JSONModel, Column, Text, ValueHelpDialog, MTable, Token, SearchField, FilterBar, Filter, FilterOperator, MessageToast, ColumnListItem) => {
     "use strict";
 
     return Controller.extend("assetdep.controller.View1", {
@@ -19,10 +27,151 @@ sap.ui.define([
         _onRouteMatched() {
             const oModel = this.getView().getModel();
             oModel.read("/ZI_FI_ASSET_DEPRECIATION", {
-                success: (oData) => this._buildPivotTable(oData.results)
+                success: (oData) => {
+                    this._aSourceData = oData.results;
+                    this._buildPivotTable(this._applyFilters(this._aSourceData));
+                }
             });
         },
 
+        onValueHelpRequest(oEvent) {
+            const mValueHelps = {
+                companyCodeFilter: { entitySet: "/ZI_VH_CompanyCode", key: "CompanyCode", description: "CompanyCodeName", searchProperties: ["CompanyCode", "CompanyCodeName"], title: "Select Company Code" },
+                ledgerFilter: { entitySet: "/ZI_fi_wip_ledger_f4", key: "Ledger", searchProperties: ["Ledger"], title: "Select Ledger" },
+                depreciationAreaFilter: { entitySet: "/ZI_VH_DEPAREA", key: "DepreciationArea", searchProperties: ["CompanyCode", "DepreciationArea"], title: "Select Depreciation Area" }
+            };
+            const oSource = oEvent.getSource();
+            const oConfig = mValueHelps[oSource.getId().split("--").pop()];
+            const aFilters = [];
+            const aCompanyCodes = this.byId("companyCodeFilter").getTokens().map((oToken) => oToken.getKey());
+
+            if (oConfig.key === "DepreciationArea" && aCompanyCodes.length) {
+                aFilters.push(new Filter(aCompanyCodes.map((sCompanyCode) =>
+                    new Filter("CompanyCode", FilterOperator.EQ, sCompanyCode)
+                ), false));
+            }
+
+            this.getView().getModel().read(oConfig.entitySet, {
+                filters: aFilters,
+                success: (oData) => {
+                    const oValueHelpModel = new JSONModel({ items: oData.results });
+                    const aColumns = [new Column({ header: new Text({ text: oConfig.title }) })];
+                    const aCells = [new Text({ text: "{valueHelp>" + oConfig.key + "}" })];
+
+                    if (oConfig.description) {
+                        aColumns.push(new Column({ header: new Text({ text: "Description" }) }));
+                        aCells.push(new Text({ text: "{valueHelp>" + oConfig.description + "}" }));
+                    }
+
+                    let oDialog;
+                    let aResultTokens = [];
+                    let bConfirmed = false;
+                    const oTable = new MTable({
+                        mode: "MultiSelect",
+                        columns: aColumns
+                    });
+                    oTable.setModel(oValueHelpModel, "valueHelp");
+                    oTable.bindItems({
+                        path: "valueHelp>/items",
+                        template: new ColumnListItem({ cells: aCells })
+                    });
+
+                    const oBasicSearch = new SearchField();
+                    const oFilterBar = new FilterBar({
+                        basicSearch: oBasicSearch.getId(),
+                        showGoOnFB: true,
+                        search: () => {
+                            const sQuery = oBasicSearch.getValue();
+                            const aSearchFilters = oConfig.searchProperties.map((sProperty) =>
+                                new Filter(sProperty, FilterOperator.Contains, sQuery)
+                            );
+                            oTable.getBinding("items").filter(sQuery ? [new Filter({ filters: aSearchFilters, and: false })] : []);
+                        }
+                    });
+
+                    oDialog = new ValueHelpDialog({
+                        title: oConfig.title,
+                        supportMultiselect: true,
+                        supportRanges: true,
+                        key: oConfig.key,
+                        descriptionKey: oConfig.description || oConfig.key,
+                        selectionChange: (oSelectionEvent) => {
+                            const oTableSelection = oSelectionEvent.getParameter("tableSelectionParams");
+                            const oItem = oTableSelection.listItem;
+                            if (oItem) {
+                                const oRow = oItem.getBindingContext("valueHelp").getObject();
+                                oSelectionEvent.getParameter("updateTokens").push({
+                                    sKey: oRow[oConfig.key],
+                                    oRow,
+                                    bSelected: oTableSelection.selected
+                                });
+                            }
+                        },
+                        ok: (oOkEvent) => {
+                            aResultTokens = oOkEvent.getParameter("tokens").map((oToken) => {
+                                const oResultToken = new Token({ key: oToken.getKey(), text: oToken.getText() });
+                                if (oToken.data("range")) {
+                                    oResultToken.data("range", oToken.data("range"));
+                                }
+                                return oResultToken;
+                            });
+                            bConfirmed = true;
+                            oDialog.close();
+                        },
+                        cancel: () => oDialog.close(),
+                        afterClose: () => {
+                            oDialog.destroy();
+                            if (bConfirmed) {
+                                setTimeout(() => {
+                                    oSource.removeAllTokens();
+                                    aResultTokens.forEach((oToken) => oSource.addToken(oToken));
+                                    oSource.fireChange({ value: oSource.getValue() });
+                                }, 0);
+                            }
+                        }
+                    });
+                    oDialog.setRangeKeyFields([{ key: oConfig.key, label: oConfig.title, type: "string" }]);
+                    oDialog.setFilterBar(oFilterBar);
+                    oDialog.setTable(oTable);
+                    oDialog.update();
+                    this.getView().addDependent(oDialog);
+                    oDialog.open();
+                },
+                error: () => MessageToast.show("Unable to load value help data.")
+            });
+        },
+
+
+
+        onFilterSearch() {
+            this._buildPivotTable(this._applyFilters(this._aSourceData || []));
+        },
+
+        onFilterReset() {
+            this._buildPivotTable(this._aSourceData || []);
+        },
+
+        _applyFilters(aData) {
+            const aFilters = [
+                ["asset_id", "assetIdFilter"],
+                ["CompanyCode", "companyCodeFilter"],
+                ["ledger", "ledgerFilter"],
+                ["DepreciationArea", "depreciationAreaFilter"],
+                ["KeyDate", "keyDateFilter"],
+                ["FiscalYear", "fiscalYearFilter"]
+            ].map(([sProperty, sControlId]) => {
+                const oControl = this.byId(sControlId);
+                const aValues = oControl.getTokens ? oControl.getTokens().map((oToken) => oToken.getKey()) : [oControl.getValue().trim()];
+                return { property: sProperty, values: aValues.filter(Boolean) };
+            }).filter((oFilter) => oFilter.values.length);
+
+            return aData.filter((oRecord) => aFilters.every((oFilter) => {
+                const vValue = oRecord[oFilter.property];
+                return vValue !== undefined && vValue !== null && oFilter.values.some((sValue) =>
+                    String(vValue).toLowerCase().includes(sValue.toLowerCase())
+                );
+            }));
+        },
         /**
          * Pivots the OData records so each unique asset_id becomes a row
          * and each unique column_Heading becomes a dynamic column,
