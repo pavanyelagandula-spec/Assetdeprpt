@@ -1,0 +1,22 @@
+<mvc:View xmlns:cards="sap.f.cards" xmlns:mdc="sap.ui.mdc" xmlns:smartfield="sap.ui.comp.smartfield" xmlns:odata="sap.ui.comp.odata" xmlns:filterbar="sap.ui.comp.filterbar" controllerName="assetdep.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <ScrollContainer
+                horizontal="true"
+                vertical="false"
+                width="100%">
+                <Table id="pivotTable"
+                    mode="None"
+                    class="sapUiSmallMargin">
+                    <!-- <headerToolbar>
+                        <Toolbar>
+                            <Title text="Asset Depreciation"/>
+                        </Toolbar>
+                    </headerToolbar> -->
+                </Table>
+            </ScrollContainer>
+        </content>
+    </Page>
+</mvc:View>
