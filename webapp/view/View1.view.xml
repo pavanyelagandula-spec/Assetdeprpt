@@ -36,7 +36,7 @@
                         <filterbar:control><Input id="assetSubnumberFilter" placeholder="Asset Sub number" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="AssetClass" groupName="__BASIC" label="Asset Class" visibleInFilterBar="true">
-                        <filterbar:control><Input id="assetClassFilter" placeholder="Asset Class" /></filterbar:control>
+                        <filterbar:control><MultiInput id="assetClassFilter" placeholder="Asset Class" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                 </filterbar:filterGroupItems>
             </filterbar:FilterBar>

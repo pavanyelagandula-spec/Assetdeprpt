@@ -56,6 +56,12 @@ sap.ui.define([
                     description: "CompanyCodeName",
                     searchProperties: ["Currency", "CompanyCode", "CompanyCodeName"],
                     title: "Select Display Currency"
+                },
+                assetClassFilter: {
+                    entitySet: "/ZI_VH_ASSET_CLASS",
+                    key: "AssetClass",
+                    searchProperties: ["AssetClass"],
+                    title: "Select Asset Class"
                 }
             };
             const oSource = oEvent.getSource();
