@@ -62,6 +62,20 @@ sap.ui.define([
                     key: "AssetClass",
                     searchProperties: ["AssetClass"],
                     title: "Select Asset Class"
+                },
+                assetIdFilter: {
+                    entitySet: "/ZI_VH_ASSET",
+                    key: "MasterFixedAsset",
+                    description: "AssetClass",
+                    searchProperties: ["MasterFixedAsset", "AssetClass"],
+                    title: "Select Fixed Asset"
+                },
+                assetSubnumberFilter: {
+                    entitySet: "/ZI_VH_ASSET",
+                    key: "FixedAsset",
+                    description: "MasterFixedAsset",
+                    searchProperties: ["FixedAsset", "MasterFixedAsset", "AssetClass"],
+                    title: "Select Asset Sub Number"
                 }
             };
             const oSource = oEvent.getSource();
@@ -69,7 +83,7 @@ sap.ui.define([
             const aFilters = [];
             const aCompanyCodes = this.byId("companyCodeFilter").getTokens().map((oToken) => oToken.getKey());
 
-            if (["DepreciationArea", "Currency"].includes(oConfig.key) && aCompanyCodes.length) {
+            if (["DepreciationArea", "Currency", "MasterFixedAsset", "FixedAsset"].includes(oConfig.key) && aCompanyCodes.length) {
                 aFilters.push(new Filter(aCompanyCodes.map((sCompanyCode) =>
                     new Filter("CompanyCode", FilterOperator.EQ, sCompanyCode)
                 ), false));
@@ -238,7 +252,7 @@ sap.ui.define([
                 ["DepreciationVariant", "depreciationVariantFilter"],
                 ["display_currency", "displayCurrencyFilter"],
                 ["fixed_asset", "assetIdFilter"],
-                ["asset_id", "assetSubnumberFilter"],
+                ["asset_subclass", "assetSubnumberFilter"],
                 ["asset_class", "assetClassFilter"]
             ];
 

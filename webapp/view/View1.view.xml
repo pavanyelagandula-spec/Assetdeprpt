@@ -30,10 +30,10 @@
                         <filterbar:control><MultiInput id="displayCurrencyFilter" placeholder="Display Currency" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="asset_id" groupName="__BASIC" label="Fixed Asset" visibleInFilterBar="true">
-                        <filterbar:control><Input id="assetIdFilter" placeholder="Fixed Asset" /></filterbar:control>
+                        <filterbar:control><MultiInput id="assetIdFilter" placeholder="Fixed Asset" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="AssetSubnumber" groupName="__BASIC" label="Asset Sub number" visibleInFilterBar="true">
-                        <filterbar:control><Input id="assetSubnumberFilter" placeholder="Asset Sub number" /></filterbar:control>
+                        <filterbar:control><MultiInput id="assetSubnumberFilter" placeholder="Asset Sub number" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="AssetClass" groupName="__BASIC" label="Asset Class" visibleInFilterBar="true">
                         <filterbar:control><MultiInput id="assetClassFilter" placeholder="Asset Class" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
