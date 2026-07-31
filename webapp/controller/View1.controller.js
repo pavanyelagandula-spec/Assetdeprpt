@@ -49,14 +49,21 @@ sap.ui.define([
             const mValueHelps = {
                 companyCodeFilter: { entitySet: "/ZI_VH_CompanyCode", key: "CompanyCode", description: "CompanyCodeName", searchProperties: ["CompanyCode", "CompanyCodeName"], title: "Select Company Code" },
                 ledgerFilter: { entitySet: "/ZI_fi_wip_ledger_f4", key: "Ledger", searchProperties: ["Ledger"], title: "Select Ledger" },
-                depreciationAreaFilter: { entitySet: "/ZI_VH_DEPAREA", key: "DepreciationArea", searchProperties: ["CompanyCode", "DepreciationArea"], title: "Select Depreciation Area" }
+                depreciationAreaFilter: { entitySet: "/ZI_VH_DEPAREA", key: "DepreciationArea", searchProperties: ["CompanyCode", "DepreciationArea"], title: "Select Depreciation Area" },
+                displayCurrencyFilter: {
+                    entitySet: "/ZI_VH_CompanyCode",
+                    key: "Currency",
+                    description: "CompanyCodeName",
+                    searchProperties: ["Currency", "CompanyCode", "CompanyCodeName"],
+                    title: "Select Display Currency"
+                }
             };
             const oSource = oEvent.getSource();
             const oConfig = mValueHelps[oSource.getId().split("--").pop()];
             const aFilters = [];
             const aCompanyCodes = this.byId("companyCodeFilter").getTokens().map((oToken) => oToken.getKey());
 
-            if (oConfig.key === "DepreciationArea" && aCompanyCodes.length) {
+            if (["DepreciationArea", "Currency"].includes(oConfig.key) && aCompanyCodes.length) {
                 aFilters.push(new Filter(aCompanyCodes.map((sCompanyCode) =>
                     new Filter("CompanyCode", FilterOperator.EQ, sCompanyCode)
                 ), false));

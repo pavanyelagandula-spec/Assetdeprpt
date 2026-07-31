@@ -58,9 +58,9 @@ This XML file does not appear to have any style information associated with it. 
                 <Property Name="keyDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:required-in-filter="true" sap:label="Key Date"/>
                 <Property Name="FiscalYear" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:required-in-filter="true" sap:label="Fiscal Year of Ledger" sap:quickinfo="Fiscal Year"/>
                 <Property Name="to_period" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:required-in-filter="true" sap:label="To Period" sap:quickinfo="Fiscal Year"/>
-                <Property Name="display_currency" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Display Currency" sap:quickinfo="Fiscal Year"/>
-                <Property Name="fixed_asset" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fixed Asset" sap:quickinfo="Fiscal Year"/>
-                <Property Name="asset_class" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Asset Class" sap:quickinfo="Fiscal Year"/>
+                <Property Name="display_currency" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Display Currency" sap:quickinfo="Fiscal Year" sap:value-list="standard"/>
+                <Property Name="fixed_asset" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fixed Asset" sap:quickinfo="Fiscal Year" sap:value-list="standard"/>
+                <Property Name="asset_class" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Asset Class" sap:quickinfo="Fiscal Year" sap:value-list="standard"/>
                 <Property Name="report_type" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Fiscal Year"/>
             </EntityType>
             <EntityType Name="ZI_fi_wip_ledger_f4Type" sap:label="Ledger User Value Help" sap:value-list="true" sap:content-version="1">
@@ -69,12 +69,35 @@ This XML file does not appear to have any style information associated with it. 
                 </Key>
                 <Property Name="Ledger" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Ledger" sap:quickinfo="Ledger in General Ledger Accounting"/>
             </EntityType>
+            <EntityType Name="ZI_VH_ASSETType" sap:label="f4 - Asset Id and class" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="MasterFixedAsset"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
+                <Property Name="MasterFixedAsset" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="Asset" sap:quickinfo="Main Asset Number"/>
+                <Property Name="AssetClass" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Asset Class"/>
+            </EntityType>
+            <EntityType Name="ZI_VH_ASSET_CLASSType" sap:label="f4 - Asset Class" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AssetClass"/>
+                </Key>
+                <Property Name="AssetClass" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="UpperCase" sap:label="Asset Class"/>
+            </EntityType>
             <EntityType Name="ZI_VH_CompanyCodeType" sap:label="Value Help for Compnay code" sap:value-list="true" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="CompanyCode"/>
                 </Key>
                 <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
                 <Property Name="CompanyCodeName" Type="Edm.String" MaxLength="25" sap:label="Company Name" sap:quickinfo="Name of Company Code or Company"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityType Name="ZI_VH_COMPANY_CURRENCYType" sap:label="f4 for display currency" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Company Code"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Currency" sap:quickinfo="Currency Key" sap:semantics="currency-code"/>
             </EntityType>
             <EntityType Name="ZI_VH_DEPAREAType" sap:label="Value Help for Deprecation Area" sap:value-list="true" sap:content-version="1">
                 <Key>
@@ -342,7 +365,10 @@ This XML file does not appear to have any style information associated with it. 
             <EntityContainer Name="cds_zsd_fi_asset_depreciation_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx pdf">
                 <EntitySet Name="ZI_FI_ASSET_DEPRECIATION" EntityType="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:requires-filter="true" sap:content-version="1"/>
                 <EntitySet Name="ZI_fi_wip_ledger_f4" EntityType="cds_zsd_fi_asset_depreciation.ZI_fi_wip_ledger_f4Type" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="ZI_VH_ASSET" EntityType="cds_zsd_fi_asset_depreciation.ZI_VH_ASSETType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_VH_ASSET_CLASS" EntityType="cds_zsd_fi_asset_depreciation.ZI_VH_ASSET_CLASSType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZI_VH_CompanyCode" EntityType="cds_zsd_fi_asset_depreciation.ZI_VH_CompanyCodeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZI_VH_COMPANY_CURRENCY" EntityType="cds_zsd_fi_asset_depreciation.ZI_VH_COMPANY_CURRENCYType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZI_VH_DEPAREA" EntityType="cds_zsd_fi_asset_depreciation.ZI_VH_DEPAREAType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__FormatSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__Format" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__PDFStandardSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFStandard" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
@@ -351,7 +377,7 @@ This XML file does not appear to have any style information associated with it. 
                 <EntitySet Name="SAP__SignatureSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__Signature" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__HierarchySet" EntityType="cds_zsd_fi_asset_depreciation.SAP__Hierarchy" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__PDFHeaderSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-                <EntitySet Name="SAP__PDFFooter QSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFFooter" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="SAP__PDFFooterSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__PDFFooter" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
                 <EntitySet Name="SAP__ValueHelpSet" EntityType="cds_zsd_fi_asset_depreciation.SAP__ValueHelp" sap:content-version="1"/>
                 <EntitySet Name="SAP__Currencies" EntityType="cds_zsd_fi_asset_depreciation.SAP__Currency" sap:content-version="1"/>
                 <EntitySet Name="SAP__UnitsOfMeasure" EntityType="cds_zsd_fi_asset_depreciation.SAP__UnitOfMeasure" sap:content-version="1"/>
@@ -453,6 +479,72 @@ This XML file does not appear to have any style information associated with it. 
                     </Record>
                 </Annotation>
             </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/display_currency">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Display Currency"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_VH_COMPANY_CURRENCY"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="display_currency"/>
+                                    <PropertyValue Property="ValueListProperty" String="Currency"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterIn">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/fixed_asset">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Fixed Asset"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_VH_ASSET"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="fixed_asset"/>
+                                    <PropertyValue Property="ValueListProperty" String="MasterFixedAsset"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="AssetClass"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/asset_class">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Asset Class"/>
+                        <PropertyValue Property="CollectionPath" String="ZI_VH_ASSET_CLASS"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="asset_class"/>
+                                    <PropertyValue Property="ValueListProperty" String="AssetClass"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
             </Annotations>
@@ -475,6 +567,57 @@ This XML file does not appear to have any style information associated with it. 
                                 <PropertyPath>to_period</PropertyPath>
                             </Collection>
                         </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_VH_ASSET">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_VH_ASSET_CLASS">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.cds_zsd_fi_asset_depreciation_Entities/ZI_VH_COMPANY_CURRENCY">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
                     </Record>
                 </Annotation>
                 <Annotation Term="Capabilities.InsertRestrictions">
@@ -589,8 +732,20 @@ This XML file does not appear to have any style information associated with it. 
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/asset_class">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
             </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_ASSETType/AssetClass">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=ANLKL&origin=DT0_100"/>
+            </Annotations>
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/CompanyCode">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=BUKRS&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_CompanyCodeType/Currency">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=WAERS&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_ASSETType/MasterFixedAsset">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=ANLN1&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_COMPANY_CURRENCYType/Currency">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=WAERS&origin=DT0_100"/>
             </Annotations>
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/to_period">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
@@ -601,11 +756,20 @@ This XML file does not appear to have any style information associated with it. 
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/FiscalYear">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
             </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_ASSET_CLASSType/AssetClass">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=ANLKL&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_ASSETType/CompanyCode">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=BUKRS&origin=DT0_100"/>
+            </Annotations>
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/report_type">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
             </Annotations>
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_fi_wip_ledger_f4Type/Ledger">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=FINS_LEDGER&origin=DT0_100"/>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_COMPANY_CURRENCYType/CompanyCode">
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=BUKRS&origin=DT0_100"/>
             </Annotations>
             <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_DEPAREAType/DepreciationArea">
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=AFABER&origin=DT0_100"/>

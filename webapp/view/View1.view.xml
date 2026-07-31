@@ -27,7 +27,7 @@
                         <filterbar:control><Input id="depreciationVariantFilter" placeholder="Depreciation Variant" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="DisplayCurrency" groupName="__BASIC" label="Display Currency" mandatory="true" visibleInFilterBar="true">
-                        <filterbar:control><Input id="displayCurrencyFilter" placeholder="Display Currency" /></filterbar:control>
+                        <filterbar:control><MultiInput id="displayCurrencyFilter" placeholder="Display Currency" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="asset_id" groupName="__BASIC" label="Fixed Asset" visibleInFilterBar="true">
                         <filterbar:control><Input id="assetIdFilter" placeholder="Fixed Asset" /></filterbar:control>
