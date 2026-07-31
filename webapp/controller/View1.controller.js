@@ -18,6 +18,7 @@ sap.ui.define([
     return Controller.extend("assetdep.controller.View1", {
 
         onInit() {
+            this.byId("keyDateFilter").setMaxDate(new Date());
             // Model may not be propagated yet at onInit; defer until route is matched
             const oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("RouteView1").attachPatternMatched(this._onRouteMatched, this);
