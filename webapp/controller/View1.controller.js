@@ -67,6 +67,7 @@ sap.ui.define([
                     entitySet: "/ZI_VH_ASSET",
                     key: "MasterFixedAsset",
                     description: "AssetClass",
+                    descriptionLabel: "Asset",
                     searchProperties: ["MasterFixedAsset", "AssetClass"],
                     title: "Select Fixed Asset"
                 },
@@ -97,7 +98,7 @@ sap.ui.define([
                     const aCells = [new Text({ text: "{valueHelp>" + oConfig.key + "}" })];
 
                     if (oConfig.description) {
-                        aColumns.push(new Column({ header: new Text({ text: "Description" }) }));
+                        aColumns.push(new Column({ header: new Text({ text: oConfig.descriptionLabel || "Description" }) }));
                         aCells.push(new Text({ text: "{valueHelp>" + oConfig.description + "}" }));
                     }
 
