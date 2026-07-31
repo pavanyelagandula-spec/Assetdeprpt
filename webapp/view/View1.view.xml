@@ -15,7 +15,7 @@
                         <filterbar:control><MultiInput id="depreciationAreaFilter" placeholder="Depreciation Area" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="keyDate" groupName="__BASIC" label="Key Date" mandatory="true" visibleInFilterBar="true">
-                        <filterbar:control><DatePicker id="keyDateFilter" valueFormat="yyyy-MM-dd" displayFormat="medium" /></filterbar:control>
+                        <filterbar:control><DatePicker id="keyDateFilter" valueFormat="yyyy-MM-dd" displayFormat="medium" change=".onKeyDateChange" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="FiscalYear" groupName="__BASIC" label="Fisc. Year of Ledger" mandatory="true" visibleInFilterBar="true">
                         <filterbar:control><Input id="fiscalYearFilter" type="Number" placeholder="Fiscal Year" /></filterbar:control>

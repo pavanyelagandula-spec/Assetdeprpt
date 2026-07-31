@@ -154,6 +154,21 @@ sap.ui.define([
 
 
 
+        onKeyDateChange(oEvent) {
+            if (!oEvent.getParameter("valid")) {
+                return;
+            }
+
+            const oSelectedDate = oEvent.getSource().getDateValue();
+            if (!oSelectedDate) {
+                return;
+            }
+
+            this.byId("fiscalYearFilter").setValue(String(oSelectedDate.getFullYear()));
+            this.byId("toPeriodFilter").setValue(String(oSelectedDate.getMonth() + 1).padStart(3, "0"));
+        },
+
+
         onFilterSearch() {
             if (this._validateMandatoryFilters()) {
                 this._hasExecutedSearch = true;
