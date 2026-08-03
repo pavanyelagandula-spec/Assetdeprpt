@@ -276,7 +276,7 @@ sap.ui.define([
                 return aExpressions.length > 1 ? "(" + aExpressions.join(" or ") + ")" : aExpressions[0];
             }).filter(Boolean);
             const sReportType = this.byId("reportTypeGroup").getSelectedButton().getText();
-            aFilterExpressions.push("report_type eq \x27" + ({ Monthly: "1", Quarterly: "2", Yearly: "3" })[sReportType] + "\x27");
+            aFilterExpressions.push("report_type eq \x27" + ({ Monthly: "M", Quarterly: "Q", Yearly: "Y" })[sReportType] + "\x27");
             return aFilterExpressions.join(" and ");
         },
 
