@@ -68,13 +68,15 @@ sap.ui.define([
                     key: "MasterFixedAsset",
                     description: "AssetClass",
                     descriptionLabel: "Asset",
-                    searchProperties: ["MasterFixedAsset", "AssetClass"],
+                    additionalColumns: [{ property: "CompanyCode", label: "Company Code" }],
+                    searchProperties: ["MasterFixedAsset", "AssetClass", "CompanyCode"],
                     title: "Select Fixed Asset"
                 },
                 assetSubnumberFilter: {
                     entitySet: "/ZI_VH_ASSET",
                     key: "FixedAsset",
                     description: "MasterFixedAsset",
+                    descriptionLabel: "Asset",
                     searchProperties: ["FixedAsset", "MasterFixedAsset", "AssetClass"],
                     title: "Select Asset Sub Number"
                 }
@@ -101,6 +103,11 @@ sap.ui.define([
                         aColumns.push(new Column({ header: new Text({ text: oConfig.descriptionLabel || "Description" }) }));
                         aCells.push(new Text({ text: "{valueHelp>" + oConfig.description + "}" }));
                     }
+
+                    (oConfig.additionalColumns || []).forEach(({ property, label }) => {
+                        aColumns.push(new Column({ header: new Text({ text: label }) }));
+                        aCells.push(new Text({ text: "{valueHelp>" + property + "}" }));
+                    });
 
                     let oDialog;
                     let aResultTokens = [];
