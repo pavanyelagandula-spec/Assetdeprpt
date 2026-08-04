@@ -66,10 +66,11 @@ sap.ui.define([
                 assetIdFilter: {
                     entitySet: "/ZI_VH_ASSET",
                     key: "MasterFixedAsset",
-                    keyLabel: "Master Fixed Asset",
-                    description: "FixedAssetDescription",
-                    descriptionLabel: "Description",
-                    additionalColumns: [{ property: "CompanyCode", label: "Company Code" }],
+                    columns: [
+                        { property: "CompanyCode", label: "Company Code" },
+                        { property: "MasterFixedAsset", label: "Master Fixed Asset" },
+                        { property: "FixedAssetDescription", label: "Description" }
+                    ],
                     searchProperties: ["CompanyCode", "MasterFixedAsset", "FixedAssetDescription"],
                     title: "Select Fixed Asset"
                 },
@@ -267,7 +268,7 @@ sap.ui.define([
                 ["to_period", "toPeriodFilter"],
                 ["DepreciationVariant", "depreciationVariantFilter"],
                 ["display_currency", "displayCurrencyFilter"],
-                ["fixed_asset", "assetIdFilter"],
+                ["MasterFixedAsset", "assetIdFilter"],
                 ["asset_subclass", "assetSubnumberFilter"],
                 ["asset_class", "assetClassFilter"]
             ];
