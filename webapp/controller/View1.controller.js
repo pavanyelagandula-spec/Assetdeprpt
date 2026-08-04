@@ -66,18 +66,24 @@ sap.ui.define([
                 assetIdFilter: {
                     entitySet: "/ZI_VH_ASSET",
                     key: "MasterFixedAsset",
-                    description: "AssetClass",
-                    descriptionLabel: "Asset",
+                    keyLabel: "Master Fixed Asset",
+                    description: "FixedAssetDescription",
+                    descriptionLabel: "Description",
                     additionalColumns: [{ property: "CompanyCode", label: "Company Code" }],
-                    searchProperties: ["MasterFixedAsset", "AssetClass", "CompanyCode"],
+                    searchProperties: ["CompanyCode", "MasterFixedAsset", "FixedAssetDescription"],
                     title: "Select Fixed Asset"
                 },
                 assetSubnumberFilter: {
                     entitySet: "/ZI_VH_ASSET",
                     key: "FixedAsset",
-                    description: "MasterFixedAsset",
-                    descriptionLabel: "Asset",
-                    searchProperties: ["FixedAsset", "MasterFixedAsset", "AssetClass"],
+                    columns: [
+                        { property: "CompanyCode", label: "Company Code" },
+                        { property: "MasterFixedAsset", label: "Master Fixed Asset" },
+                        { property: "FixedAsset", label: "Fixed Asset" },
+                        { property: "FixedAssetDescription", label: "Description" },
+                        { property: "AssetClass", label: "Asset Class" }
+                    ],
+                    searchProperties: ["CompanyCode", "MasterFixedAsset", "FixedAsset", "FixedAssetDescription", "AssetClass"],
                     title: "Select Asset Sub Number"
                 }
             };
@@ -96,18 +102,20 @@ sap.ui.define([
                 filters: aFilters,
                 success: (oData) => {
                     const oValueHelpModel = new JSONModel({ items: oData.results });
-                    const aColumns = [new Column({ header: new Text({ text: oConfig.title }) })];
-                    const aCells = [new Text({ text: "{valueHelp>" + oConfig.key + "}" })];
-
-                    if (oConfig.description) {
-                        aColumns.push(new Column({ header: new Text({ text: oConfig.descriptionLabel || "Description" }) }));
-                        aCells.push(new Text({ text: "{valueHelp>" + oConfig.description + "}" }));
-                    }
-
-                    (oConfig.additionalColumns || []).forEach(({ property, label }) => {
-                        aColumns.push(new Column({ header: new Text({ text: label }) }));
-                        aCells.push(new Text({ text: "{valueHelp>" + property + "}" }));
-                    });
+                    const aDisplayColumns = oConfig.columns || [
+                        { property: oConfig.key, label: oConfig.keyLabel || oConfig.title },
+                        ...(oConfig.description ? [{
+                            property: oConfig.description,
+                            label: oConfig.descriptionLabel || "Description"
+                        }] : []),
+                        ...(oConfig.additionalColumns || [])
+                    ];
+                    const aColumns = aDisplayColumns.map(({ label }) =>
+                        new Column({ header: new Text({ text: label }) })
+                    );
+                    const aCells = aDisplayColumns.map(({ property }) =>
+                        new Text({ text: "{valueHelp>" + property + "}" })
+                    );
 
                     let oDialog;
                     let aResultTokens = [];

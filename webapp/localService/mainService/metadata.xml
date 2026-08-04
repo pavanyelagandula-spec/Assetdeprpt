@@ -77,6 +77,7 @@ This XML file does not appear to have any style information associated with it. 
 <Property Name="MasterFixedAsset" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="Asset" sap:quickinfo="Main Asset Number"/>
 <Property Name="AssetClass" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Asset Class"/>
 <Property Name="FixedAsset" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Subnumber" sap:quickinfo="Asset Subnumber"/>
+<Property Name="FixedAssetDescription" Type="Edm.String" MaxLength="50" sap:label="Description" sap:quickinfo="Asset Description"/>
 </EntityType>
 <EntityType Name="ZI_VH_ASSET_CLASSType" sap:label="f4 - Asset Class" sap:value-list="true" sap:content-version="1">
 <Key>
@@ -522,6 +523,9 @@ This XML file does not appear to have any style information associated with it. 
 <Record Type="Common.ValueListParameterDisplayOnly">
 <PropertyValue Property="ValueListProperty" String="FixedAsset"/>
 </Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="FixedAssetDescription"/>
+</Record>
 </Collection>
 </PropertyValue>
 </Record>
@@ -569,6 +573,9 @@ This XML file does not appear to have any style information associated with it. 
 </Record>
 <Record Type="Common.ValueListParameterDisplayOnly">
 <PropertyValue Property="ValueListProperty" String="AssetClass"/>
+</Record>
+<Record Type="Common.ValueListParameterDisplayOnly">
+<PropertyValue Property="ValueListProperty" String="FixedAssetDescription"/>
 </Record>
 </Collection>
 </PropertyValue>
@@ -794,6 +801,9 @@ This XML file does not appear to have any style information associated with it. 
 </Annotations>
 <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/asset_subclass">
 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
+</Annotations>
+<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_VH_ASSETType/FixedAssetDescription">
+<Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=TXA50_ANLT&origin=DT0_100"/>
 </Annotations>
 <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="cds_zsd_fi_asset_depreciation.ZI_FI_ASSET_DEPRECIATIONType/report_type">
 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&id=GJAHR&origin=DT0_100"/>
