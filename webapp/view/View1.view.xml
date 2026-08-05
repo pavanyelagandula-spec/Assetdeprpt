@@ -24,7 +24,9 @@
                         <filterbar:control><Input id="toPeriodFilter" type="Number" placeholder="To Period" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="DepreciationVariant" groupName="__BASIC" label="Depreciation Variant" visibleInFilterBar="true">
-                        <filterbar:control><Input id="depreciationVariantFilter" placeholder="Depreciation Variant" /></filterbar:control>
+                        <filterbar:control>
+                            <Input id="depreciationVariantFilter" value="Ordinary Depreciation" editable="false" />
+                        </filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="DisplayCurrency" groupName="__BASIC" label="Display Currency" mandatory="true" visibleInFilterBar="true">
                         <filterbar:control><MultiInput id="displayCurrencyFilter" placeholder="Display Currency" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
