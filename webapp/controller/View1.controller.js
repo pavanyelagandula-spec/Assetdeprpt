@@ -101,6 +101,7 @@ sap.ui.define([
 
             this.getView().getModel().read(oConfig.entitySet, {
                 filters: aFilters,
+                urlParameters: { "$top": "5000" },
                 success: (oData) => {
                     const oValueHelpModel = new JSONModel({ items: oData.results });
                     const aDisplayColumns = oConfig.columns || [
@@ -268,7 +269,7 @@ sap.ui.define([
                 ["to_period", "toPeriodFilter"],
                 ["DepreciationVariant", "depreciationVariantFilter"],
                 ["display_currency", "displayCurrencyFilter"],
-                ["MasterFixedAsset", "assetIdFilter"],
+                ["fixed_asset", "assetIdFilter"],
                 ["asset_subclass", "assetSubnumberFilter"],
                 ["asset_class", "assetClassFilter"]
             ];
