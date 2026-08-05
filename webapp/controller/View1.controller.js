@@ -267,7 +267,6 @@ sap.ui.define([
                 ["keyDate", "keyDateFilter"],
                 ["FiscalYear", "fiscalYearFilter"],
                 ["to_period", "toPeriodFilter"],
-                ["DepreciationVariant", "depreciationVariantFilter"],
                 ["display_currency", "displayCurrencyFilter"],
                 ["fixed_asset", "assetIdFilter"],
                 ["asset_subclass", "assetSubnumberFilter"],
