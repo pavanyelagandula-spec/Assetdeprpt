@@ -317,9 +317,16 @@ sap.ui.define([
          * @param {Array} aData - array of OData records
          */
         _buildPivotTable(aData) {
+            const MAX_COLUMNS = 500;
 
             // Unique column headings in order of first appearance
-            const aHeadings = [...new Set(aData.map((r) => r.column_Heading))];
+            let aHeadings = [...new Set(aData.map((r) => r.column_Heading))];
+
+            // Restrict to maximum of 500 columns
+            if (aHeadings.length > MAX_COLUMNS) {
+                MessageToast.show(`Limiting columns to ${MAX_COLUMNS} out of ${aHeadings.length} available columns`);
+                aHeadings = aHeadings.slice(0, MAX_COLUMNS);
+            }
 
             // Build pivot map: { asset_id -> { column_Heading: value, ... } }
             const oAssetMap = {};
@@ -341,7 +348,7 @@ sap.ui.define([
                 header: new Text({ text: "Asset" })
             }));
 
-            // One column per unique column_Heading
+            // One column per unique column_Heading (max 500)
             aHeadings.forEach((sHeading) => {
                 oPivotTable.addColumn(new Column({
                     width: "100px",
