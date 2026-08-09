@@ -116,7 +116,7 @@ sap.ui.define([
                         new Column({ header: new Text({ text: label }) })
                     );
                     const aCells = aDisplayColumns.map(({ property }) =>
-                        new Text({ text: "{valueHelp>" + property + "}" })
+                        new Text({ text: "{" + property + "}" })
                     );
 
                     let oDialog;
@@ -127,8 +127,10 @@ sap.ui.define([
                         columns: aColumns
                     });
                     oTable.setModel(oValueHelpModel, "valueHelp");
+                    // ValueHelpDialog restores selections through the default table context.
+                    oTable.setModel(oValueHelpModel);
                     oTable.bindItems({
-                        path: "valueHelp>/items",
+                        path: "/items",
                         template: new ColumnListItem({ cells: aCells })
                     });
 
@@ -160,7 +162,7 @@ sap.ui.define([
                             const aUpdateTokens = oSelectionEvent.getParameter("updateTokens");
 
                             aItems.forEach((oItem) => {
-                                const oRow = oItem.getBindingContext("valueHelp").getObject();
+                                const oRow = (oItem.getBindingContext("valueHelp") || oItem.getBindingContext()).getObject();
                                 aUpdateTokens.push({
                                     sKey: oRow[oConfig.key],
                                     oRow,
@@ -194,6 +196,14 @@ sap.ui.define([
                     oDialog.setRangeKeyFields([{ key: oConfig.key, label: oConfig.title, type: "string" }]);
                     oDialog.setFilterBar(oFilterBar);
                     oDialog.setTable(oTable);
+                    const aInitialTokens = oSource.getTokens().map((oToken) => {
+                        const oInitialToken = new Token({ key: oToken.getKey(), text: oToken.getText() });
+                        if (oToken.data("range")) {
+                            oInitialToken.data("range", oToken.data("range"));
+                        }
+                        return oInitialToken;
+                    });
+                    oDialog.setTokens(aInitialTokens);
                     oDialog.update();
                     this.getView().addDependent(oDialog);
                     oDialog.open();
