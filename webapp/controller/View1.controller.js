@@ -153,15 +153,20 @@ sap.ui.define([
                         descriptionKey: oConfig.description || oConfig.key,
                         selectionChange: (oSelectionEvent) => {
                             const oTableSelection = oSelectionEvent.getParameter("tableSelectionParams");
-                            const oItem = oTableSelection.listItem;
-                            if (oItem) {
+                            // A row click provides `listItem`, while the table select-all
+                            // checkbox provides every affected row in `listItems`.
+                            const aItems = oTableSelection.listItems ||
+                                (oTableSelection.listItem ? [oTableSelection.listItem] : []);
+                            const aUpdateTokens = oSelectionEvent.getParameter("updateTokens");
+
+                            aItems.forEach((oItem) => {
                                 const oRow = oItem.getBindingContext("valueHelp").getObject();
-                                oSelectionEvent.getParameter("updateTokens").push({
+                                aUpdateTokens.push({
                                     sKey: oRow[oConfig.key],
                                     oRow,
                                     bSelected: oTableSelection.selected
                                 });
-                            }
+                            });
                         },
                         ok: (oOkEvent) => {
                             aResultTokens = oOkEvent.getParameter("tokens").map((oToken) => {
