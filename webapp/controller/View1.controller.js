@@ -31,6 +31,22 @@ sap.ui.define([
         _onRouteMatched() {
             this._aSourceData = [];
             this._buildPivotTable(this._aSourceData);
+            this._loadDisplayCurrencies();
+        },
+
+        _loadDisplayCurrencies() {
+            this.getView().getModel().read("/ZI_VH_CompanyCode", {
+                urlParameters: { "$top": "5000" },
+                success: (oData) => {
+                    const aCurrencies = [...new Set(oData.results
+                        .map((oItem) => oItem.Currency)
+                        .filter(Boolean))]
+                        .sort()
+                        .map((sCurrency) => ({ Currency: sCurrency }));
+                    this.getView().setModel(new JSONModel({ items: aCurrencies }), "currency");
+                },
+                error: () => MessageToast.show("Unable to load display currencies.")
+            });
         },
 
         _loadData() {
@@ -254,7 +270,7 @@ sap.ui.define([
             ];
             const aMissingLabels = aMandatoryFields.filter(([sControlId]) => {
                 const oControl = this.byId(sControlId);
-                const bHasValue = oControl.getTokens ? oControl.getTokens().length > 0 : Boolean(oControl.getValue().trim());
+                const bHasValue = oControl.getTokens ? oControl.getTokens().length > 0 : Boolean(sControlId === "displayCurrencyFilter" ? oControl.getSelectedKey() : oControl.getValue().trim());
                 oControl.setValueState(bHasValue ? "None" : "Error");
                 return !bHasValue;
             }).map(([, sLabel]) => sLabel);
@@ -290,7 +306,11 @@ sap.ui.define([
 
             const aFilterExpressions = aFieldMappings.map(([sProperty, sControlId]) => {
                 const oControl = this.byId(sControlId);
-                const aValues = oControl.getTokens ? oControl.getTokens().map((oToken) => oToken.getKey()) : [oControl.getValue().trim()];
+                const aValues = oControl.getTokens
+                    ? oControl.getTokens().map((oToken) => oToken.getKey())
+                    : [sControlId === "displayCurrencyFilter"
+                        ? oControl.getSelectedKey()
+                        : oControl.getValue().trim()];
                 const aExpressions = aValues.filter(Boolean).map((sValue) => {
                     const sLiteral = sProperty === "keyDate"
                         ? "datetime\x27" + sValue + "T00:00:00\x27"
@@ -314,7 +334,11 @@ sap.ui.define([
                 ["FiscalYear", "fiscalYearFilter"]
             ].map(([sProperty, sControlId]) => {
                 const oControl = this.byId(sControlId);
-                const aValues = oControl.getTokens ? oControl.getTokens().map((oToken) => oToken.getKey()) : [oControl.getValue().trim()];
+                const aValues = oControl.getTokens
+                    ? oControl.getTokens().map((oToken) => oToken.getKey())
+                    : [sControlId === "displayCurrencyFilter"
+                        ? oControl.getSelectedKey()
+                        : oControl.getValue().trim()];
                 return { property: sProperty, values: aValues.filter(Boolean) };
             }).filter((oFilter) => oFilter.values.length);
 
