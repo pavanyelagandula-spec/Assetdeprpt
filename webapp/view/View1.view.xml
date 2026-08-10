@@ -1,4 +1,4 @@
-<mvc:View xmlns:cards="sap.f.cards" xmlns:mdc="sap.ui.mdc" xmlns:smartfield="sap.ui.comp.smartfield" xmlns:odata="sap.ui.comp.odata" xmlns:filterbar="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" controllerName="assetdep.controller.View1"
+<mvc:View xmlns:cards="sap.f.cards" xmlns:mdc="sap.ui.mdc" xmlns:smartfield="sap.ui.comp.smartfield" xmlns:odata="sap.ui.comp.odata" xmlns:filterbar="sap.ui.comp.filterbar" controllerName="assetdep.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
@@ -29,11 +29,7 @@
                         </filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="DisplayCurrency" groupName="__BASIC" label="Display Currency" mandatory="true" visibleInFilterBar="true">
-                        <filterbar:control>
-                            <Select id="displayCurrencyFilter" width="100%" forceSelection="true" items="{path: '/ZI_VH_COMPANY_CURRENCY'}">
-                                <core:Item key="{Currency}" text="{Currency}" />
-                            </Select>
-                        </filterbar:control>
+                        <filterbar:control><MultiInput id="displayCurrencyFilter" placeholder="Display Currency" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="asset_id" groupName="__BASIC" label="Fixed Asset" visibleInFilterBar="true">
                         <filterbar:control><MultiInput id="assetIdFilter" placeholder="Fixed Asset" showValueHelp="true" valueHelpRequest=".onValueHelpRequest" /></filterbar:control>

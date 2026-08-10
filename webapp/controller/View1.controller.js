@@ -254,7 +254,7 @@ sap.ui.define([
             ];
             const aMissingLabels = aMandatoryFields.filter(([sControlId]) => {
                 const oControl = this.byId(sControlId);
-                const bHasValue = this._getFilterValues(oControl).length > 0;
+                const bHasValue = oControl.getTokens ? oControl.getTokens().length > 0 : Boolean(oControl.getValue().trim());
                 oControl.setValueState(bHasValue ? "None" : "Error");
                 return !bHasValue;
             }).map(([, sLabel]) => sLabel);
@@ -264,16 +264,6 @@ sap.ui.define([
                 return false;
             }
             return true;
-        },
-
-        _getFilterValues(oControl) {
-            if (oControl.getTokens) {
-                return oControl.getTokens().map((oToken) => oToken.getKey()).filter(Boolean);
-            }
-            if (oControl.getSelectedKey) {
-                return [oControl.getSelectedKey()].filter(Boolean);
-            }
-            return [oControl.getValue().trim()].filter(Boolean);
         },
 
         onFilterReset() {
@@ -300,8 +290,8 @@ sap.ui.define([
 
             const aFilterExpressions = aFieldMappings.map(([sProperty, sControlId]) => {
                 const oControl = this.byId(sControlId);
-                const aValues = this._getFilterValues(oControl);
-                const aExpressions = aValues.map((sValue) => {
+                const aValues = oControl.getTokens ? oControl.getTokens().map((oToken) => oToken.getKey()) : [oControl.getValue().trim()];
+                const aExpressions = aValues.filter(Boolean).map((sValue) => {
                     const sLiteral = sProperty === "keyDate"
                         ? "datetime\x27" + sValue + "T00:00:00\x27"
                         : "\x27" + String(sValue).replace(/\x27/g, "\x27\x27") + "\x27";
@@ -324,7 +314,8 @@ sap.ui.define([
                 ["FiscalYear", "fiscalYearFilter"]
             ].map(([sProperty, sControlId]) => {
                 const oControl = this.byId(sControlId);
-                return { property: sProperty, values: this._getFilterValues(oControl) };
+                const aValues = oControl.getTokens ? oControl.getTokens().map((oToken) => oToken.getKey()) : [oControl.getValue().trim()];
+                return { property: sProperty, values: aValues.filter(Boolean) };
             }).filter((oFilter) => oFilter.values.length);
 
             return aData.filter((oRecord) => aFilters.every((oFilter) => {
