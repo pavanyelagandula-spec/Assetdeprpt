@@ -25,6 +25,8 @@ sap.ui.define([
             this.byId("assetFilterBar").attachSearch(this.onFilterSearch, this);
             this.byId("assetFilterBar").attachReset(this.onFilterReset, this);
             this.byId("reportTypeGroup").attachSelect(this.onReportTypeSelect, this);
+            this.byId("companyCodeFilter").attachChange(this.onCompanyCodeChange, this);
+            this.byId("companyCodeFilter").attachTokenUpdate(this.onCompanyCodeChange, this);
             //end
         },
 
@@ -34,8 +36,28 @@ sap.ui.define([
             this._loadDisplayCurrencies();
         },
 
+        onCompanyCodeChange() {
+            clearTimeout(this._companyCodeUpdateTimer);
+            this._companyCodeUpdateTimer = setTimeout(() => this._loadDisplayCurrencies(), 0);
+        },
+
         _loadDisplayCurrencies() {
+            const aCompanyCodes = this.byId("companyCodeFilter").getTokens()
+                .map((oToken) => oToken.getKey());
+            const oCurrencyFilter = this.byId("displayCurrencyFilter");
+
+            if (!aCompanyCodes.length) {
+                this.getView().setModel(new JSONModel({ items: [] }), "currency");
+                oCurrencyFilter.setSelectedKey("");
+                oCurrencyFilter.setValue("");
+                return;
+            }
+
+            const oCompanyCodeFilter = new Filter(aCompanyCodes.map((sCompanyCode) =>
+                new Filter("CompanyCode", FilterOperator.EQ, sCompanyCode)
+            ), false);
             this.getView().getModel().read("/ZI_VH_CompanyCode", {
+                filters: [oCompanyCodeFilter],
                 urlParameters: { "$top": "5000" },
                 success: (oData) => {
                     const aCurrencies = [...new Set(oData.results
@@ -44,6 +66,11 @@ sap.ui.define([
                         .sort()
                         .map((sCurrency) => ({ Currency: sCurrency }));
                     this.getView().setModel(new JSONModel({ items: aCurrencies }), "currency");
+
+                    if (!aCurrencies.some((oItem) => oItem.Currency === oCurrencyFilter.getSelectedKey())) {
+                        oCurrencyFilter.setSelectedKey("");
+                        oCurrencyFilter.setValue("");
+                    }
                 },
                 error: () => MessageToast.show("Unable to load display currencies.")
             });
