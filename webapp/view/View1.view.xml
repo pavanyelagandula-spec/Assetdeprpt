@@ -46,6 +46,17 @@
                     </filterbar:FilterGroupItem>
                 </filterbar:filterGroupItems>
             </filterbar:FilterBar>
+            <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+                <Title text="Asset Depreciation"/>
+                <ToolbarSpacer/>
+                <RadioButtonGroup id="reportTypeGroup" columns="3" selectedIndex="0">
+                    <buttons>
+                        <RadioButton text="Monthly"/>
+                        <RadioButton text="Quarterly"/>
+                        <RadioButton text="Yearly"/>
+                    </buttons>
+                </RadioButtonGroup>
+            </Toolbar>
             <ScrollContainer
                 horizontal="true"
                 vertical="false"
@@ -53,19 +64,6 @@
                 <Table id="pivotTable"
                     mode="None"
                     class="sapUiSmallMargin">
-                    <headerToolbar>
-                        <Toolbar>
-                            <Title text="Asset Depreciation"/>
-                            <ToolbarSpacer/>
-                            <RadioButtonGroup id="reportTypeGroup" columns="3" selectedIndex="0">
-                                <buttons>
-                                    <RadioButton text="Monthly"/>
-                                    <RadioButton text="Quarterly"/>
-                                    <RadioButton text="Yearly"/>
-                                </buttons>
-                            </RadioButtonGroup>
-                        </Toolbar>
-                    </headerToolbar>
                 </Table>
             </ScrollContainer>
         </content>

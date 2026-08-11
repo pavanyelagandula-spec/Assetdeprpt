@@ -21,7 +21,7 @@ builder:
           name: ZASSETDEPRPT
           description: Depreciation Planning Reports
           package: ZFI_ASSET_DEPRECIATION_FIORI
-          transport: DT0K900229
+          transport: DT0K900223
         exclude:
           - /test/
           - /localService/
