@@ -178,16 +178,20 @@ sap.ui.define([
                     });
 
                     const oBasicSearch = new SearchField();
+                    const fnSearch = () => {
+                        const sQuery = oBasicSearch.getValue();
+                        const aSearchFilters = oConfig.searchProperties.map((sProperty) =>
+                            new Filter(sProperty, FilterOperator.Contains, sQuery)
+                        );
+                        oTable.getBinding("items").filter(sQuery
+                            ? [new Filter({ filters: aSearchFilters, and: false })]
+                            : []);
+                    };
+                    oBasicSearch.attachSearch(fnSearch);
                     const oFilterBar = new FilterBar({
                         basicSearch: oBasicSearch.getId(),
                         showGoOnFB: true,
-                        search: () => {
-                            const sQuery = oBasicSearch.getValue();
-                            const aSearchFilters = oConfig.searchProperties.map((sProperty) =>
-                                new Filter(sProperty, FilterOperator.Contains, sQuery)
-                            );
-                            oTable.getBinding("items").filter(sQuery ? [new Filter({ filters: aSearchFilters, and: false })] : []);
-                        }
+                        search: fnSearch
                     });
 
                     oDialog = new ValueHelpDialog({
