@@ -31,7 +31,7 @@
                     <filterbar:FilterGroupItem name="DisplayCurrency" groupName="__BASIC" label="Display Currency" mandatory="true" visibleInFilterBar="true">
                         <filterbar:control>
                             <ComboBox id="displayCurrencyFilter" placeholder="Display Currency" items="{currency>/items}">
-                                <core:Item key="{currency>Currency}" text="{currency>Currency}" />
+                                <core:Item key="{currency>Key}" text="{currency>Text}" />
                             </ComboBox>
                         </filterbar:control>
                     </filterbar:FilterGroupItem>

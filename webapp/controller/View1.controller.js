@@ -60,20 +60,35 @@ sap.ui.define([
                 filters: [oCompanyCodeFilter],
                 urlParameters: { "$top": "5000" },
                 success: (oData) => {
-                    const aCurrencies = [...new Set(oData.results
+                    const aCurrentCompanyCodes = this.byId("companyCodeFilter").getTokens()
+                        .map((oToken) => oToken.getKey());
+                    if (aCurrentCompanyCodes.join("|") !== aCompanyCodes.join("|")) {
+                        return;
+                    }
+                    const aCompanyCurrencies = [...new Set(oData.results
                         .map((oItem) => oItem.Currency)
                         .filter(Boolean))]
                         .sort()
-                        .map((sCurrency) => ({ Currency: sCurrency }));
-                    this.getView().setModel(new JSONModel({ items: aCurrencies }), "currency");
-
-                    if (!aCurrencies.some((oItem) => oItem.Currency === oCurrencyFilter.getSelectedKey())) {
-                        oCurrencyFilter.setSelectedKey("");
-                        oCurrencyFilter.setValue("");
-                    }
+                        .map((sCurrency) => ({
+                            Key: sCurrency,
+                            Text: sCurrency + " (Company Code Currency)"
+                        }));
+                    const oGroupCurrency = {
+                        Key: "GROUP_USD",
+                        Text: "USD (Group Currency)"
+                    };
+                    this.getView().setModel(new JSONModel({
+                        items: [...aCompanyCurrencies, oGroupCurrency]
+                    }), "currency");
+                    oCurrencyFilter.setSelectedKey("GROUP_USD");
                 },
                 error: () => MessageToast.show("Unable to load display currencies.")
             });
+        },
+
+        _getDisplayCurrencyValue() {
+            const sSelectedKey = this.byId("displayCurrencyFilter").getSelectedKey();
+            return sSelectedKey === "GROUP_USD" ? "USD" : sSelectedKey;
         },
 
         _loadData() {
@@ -301,7 +316,7 @@ sap.ui.define([
             ];
             const aMissingLabels = aMandatoryFields.filter(([sControlId]) => {
                 const oControl = this.byId(sControlId);
-                const bHasValue = oControl.getTokens ? oControl.getTokens().length > 0 : Boolean(sControlId === "displayCurrencyFilter" ? oControl.getSelectedKey() : oControl.getValue().trim());
+                const bHasValue = oControl.getTokens ? oControl.getTokens().length > 0 : Boolean(sControlId === "displayCurrencyFilter" ? this._getDisplayCurrencyValue() : oControl.getValue().trim());
                 oControl.setValueState(bHasValue ? "None" : "Error");
                 return !bHasValue;
             }).map(([, sLabel]) => sLabel);
@@ -340,7 +355,7 @@ sap.ui.define([
                 const aValues = oControl.getTokens
                     ? oControl.getTokens().map((oToken) => oToken.getKey())
                     : [sControlId === "displayCurrencyFilter"
-                        ? oControl.getSelectedKey()
+                        ? this._getDisplayCurrencyValue()
                         : oControl.getValue().trim()];
                 const aExpressions = aValues.filter(Boolean).map((sValue) => {
                     const sLiteral = sProperty === "keyDate"
@@ -368,7 +383,7 @@ sap.ui.define([
                 const aValues = oControl.getTokens
                     ? oControl.getTokens().map((oToken) => oToken.getKey())
                     : [sControlId === "displayCurrencyFilter"
-                        ? oControl.getSelectedKey()
+                        ? this._getDisplayCurrencyValue()
                         : oControl.getValue().trim()];
                 return { property: sProperty, values: aValues.filter(Boolean) };
             }).filter((oFilter) => oFilter.values.length);
