@@ -19,6 +19,7 @@ sap.ui.define([
 
         onInit() {
             this.byId("keyDateFilter").setMaxDate(new Date());
+            this.byId("page").setBusyIndicatorDelay(0);
             // Model may not be propagated yet at onInit; defer until route is matched
             const oRouter = this.getOwnerComponent().getRouter();
             oRouter.getRoute("RouteView1").attachPatternMatched(this._onRouteMatched, this);
@@ -93,13 +94,27 @@ sap.ui.define([
 
         _loadData() {
             const sFilter = this._getODataFilterExpression();
+            const iRequestId = (this._dataRequestId || 0) + 1;
+            const oPage = this.byId("page");
+            this._dataRequestId = iRequestId;
+            oPage.setBusy(true);
+
             this.getView().getModel().read("/ZI_FI_ASSET_DEPRECIATION", {
                 urlParameters: sFilter ? { "$filter": sFilter } : {},
                 success: (oData) => {
+                    if (iRequestId !== this._dataRequestId) {
+                        return;
+                    }
                     this._aSourceData = oData.results;
                     this._buildPivotTable(this._aSourceData);
+                    oPage.setBusy(false);
                 },
-                error: () => MessageToast.show("Unable to load filtered asset-depreciation data.")
+                error: () => {
+                    if (iRequestId === this._dataRequestId) {
+                        oPage.setBusy(false);
+                        MessageToast.show("Unable to load filtered asset-depreciation data.");
+                    }
+                }
             });
         },
 
