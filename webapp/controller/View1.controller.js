@@ -175,12 +175,23 @@ sap.ui.define([
             const oSource = oEvent.getSource();
             const oConfig = mValueHelps[oSource.getId().split("--").pop()];
             const aFilters = [];
-            const aCompanyCodes = this.byId("companyCodeFilter").getTokens().map((oToken) => oToken.getKey());
+            const aCompanyCodes = this.byId("companyCodeFilter").getTokens()
+                .map((oToken) => oToken.getKey());
 
             if (["DepreciationArea", "Currency", "MasterFixedAsset", "FixedAsset"].includes(oConfig.key) && aCompanyCodes.length) {
                 aFilters.push(new Filter(aCompanyCodes.map((sCompanyCode) =>
                     new Filter("CompanyCode", FilterOperator.EQ, sCompanyCode)
                 ), false));
+            }
+
+            if (oConfig.key === "DepreciationArea") {
+                const aLedgers = this.byId("ledgerFilter").getTokens()
+                    .map((oToken) => oToken.getKey());
+                if (aLedgers.length) {
+                    aFilters.push(new Filter(aLedgers.map((sLedger) =>
+                        new Filter("Ledger", FilterOperator.EQ, sLedger)
+                    ), false));
+                }
             }
 
             this.getView().getModel().read(oConfig.entitySet, {
