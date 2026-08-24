@@ -18,6 +18,7 @@ sap.ui.define([
     return Controller.extend("assetdep.controller.View1", {
 
         onInit() {
+            this._iPageSize = 50;
             this.byId("keyDateFilter").setMaxDate(new Date());
             this.byId("page").setBusyIndicatorDelay(0);
             // Model may not be propagated yet at onInit; defer until route is matched
@@ -469,6 +470,9 @@ sap.ui.define([
                 oAssetMap[r.asset_id][r.column_Heading] = r.value;
             });
             const aPivotRows = Object.values(oAssetMap);
+            this._aPivotRows = aPivotRows;
+            this._aHeadings = aHeadings;
+            this._iCurrentPage = 1;
 
             // ── Build pivot table columns ──────────────────────────────────────
             const oPivotTable = this.byId("pivotTable");
@@ -489,9 +493,37 @@ sap.ui.define([
                 }));
             });
 
-            // ── Build pivot table rows ─────────────────────────────────────────
+            this._renderPivotPage();
+        },
+
+        onPreviousPage() {
+            if (this._iCurrentPage > 1) {
+                this._iCurrentPage -= 1;
+                this._renderPivotPage();
+            }
+        },
+
+        onNextPage() {
+            const iPageCount = Math.ceil(this._aPivotRows.length / this._iPageSize);
+            if (this._iCurrentPage < iPageCount) {
+                this._iCurrentPage += 1;
+                this._renderPivotPage();
+            }
+        },
+
+        _renderPivotPage() {
+            const iPageSize = this._iPageSize || 50;
+            const aPivotRows = this._aPivotRows || [];
+            const aHeadings = this._aHeadings || [];
+            const iTotalRows = aPivotRows.length;
+            const iPageCount = Math.max(1, Math.ceil(iTotalRows / iPageSize));
+            this._iCurrentPage = Math.min(Math.max(this._iCurrentPage || 1, 1), iPageCount);
+
+            const iStart = (this._iCurrentPage - 1) * iPageSize;
+            const aPageRows = aPivotRows.slice(iStart, iStart + iPageSize);
+            const oPivotTable = this.byId("pivotTable");
             oPivotTable.destroyItems();
-            aPivotRows.forEach((oRow) => {
+            aPageRows.forEach((oRow) => {
                 const aCells = [new Text({ text: oRow.asset_id })];
                 aHeadings.forEach((sHeading) => {
                     const sVal = (oRow[sHeading] !== undefined && oRow[sHeading] !== null && oRow[sHeading] !== "")
@@ -501,6 +533,12 @@ sap.ui.define([
                 });
                 oPivotTable.addItem(new ColumnListItem({ cells: aCells }));
             });
+
+            const iFirstRow = iTotalRows ? iStart + 1 : 0;
+            const iLastRow = iTotalRows ? iStart + aPageRows.length : 0;
+            this.byId("paginationStatus").setText("Showing " + iFirstRow + "–" + iLastRow + " of " + iTotalRows);
+            this.byId("previousPageButton").setEnabled(this._iCurrentPage > 1);
+            this.byId("nextPageButton").setEnabled(this._iCurrentPage < iPageCount);
         }
     });
 });

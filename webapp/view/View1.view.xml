@@ -66,6 +66,13 @@
                     class="sapUiSmallMargin">
                 </Table>
             </ScrollContainer>
+            <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+                <Button id="previousPageButton" text="Previous" type="Transparent" press=".onPreviousPage" />
+                <ToolbarSpacer />
+                <Text id="paginationStatus" />
+                <ToolbarSpacer />
+                <Button id="nextPageButton" text="Next" type="Transparent" press=".onNextPage" />
+            </Toolbar>
         </content>
     </Page>
 </mvc:View>
