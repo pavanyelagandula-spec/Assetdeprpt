@@ -20,7 +20,7 @@
                     <filterbar:FilterGroupItem name="FiscalYear" groupName="__BASIC" label="Fisc. Year of Ledger" mandatory="true" visibleInFilterBar="true">
                         <filterbar:control><Input id="fiscalYearFilter" type="Number" placeholder="Fiscal Year" editable="false" /></filterbar:control>
                     </filterbar:FilterGroupItem>
-                    <filterbar:FilterGroupItem name="ToPeriod" groupName="__BASIC" label="To Period" mandatory="true" visibleInFilterBar="true">
+                    <filterbar:FilterGroupItem name="ToPeriod" groupName="__BASIC" label="To Period" mandatory="true" visibleInFilterBar="false">
                         <filterbar:control><Input id="toPeriodFilter" type="Number" placeholder="To Period" /></filterbar:control>
                     </filterbar:FilterGroupItem>
                     <filterbar:FilterGroupItem name="DepreciationVariant" groupName="__BASIC" label="Depreciation Variant" visibleInFilterBar="true">
