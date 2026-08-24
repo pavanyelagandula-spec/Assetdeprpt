@@ -94,6 +94,7 @@ sap.ui.define([
 
         _loadData() {
             const sFilter = this._getODataFilterExpression();
+
             const iRequestId = (this._dataRequestId || 0) + 1;
             const oPage = this.byId("page");
             this._dataRequestId = iRequestId;
@@ -102,12 +103,16 @@ sap.ui.define([
             this.getView().getModel().read("/ZI_FI_ASSET_DEPRECIATION", {
                 urlParameters: sFilter ? { "$filter": sFilter } : {},
                 success: (oData) => {
+
                     if (iRequestId !== this._dataRequestId) {
                         return;
                     }
+
                     this._aSourceData = oData.results;
                     this._buildPivotTable(this._aSourceData);
+
                     oPage.setBusy(false);
+
                 },
                 error: () => {
                     if (iRequestId === this._dataRequestId) {
@@ -144,39 +149,44 @@ sap.ui.define([
                 assetClassFilter: {
                     entitySet: "/ZI_VH_ASSET_CLASS",
                     key: "AssetClass",
-                    searchProperties: ["AssetClass"],
-                    title: "Select Asset Class"
+                    columns: [
+                        { property: "AssetClass", label: "Asset Class" },
+                        { property: "AssetClassName", label: "Asset Class Name" }
+                    ],
+                    searchProperties: ["AssetClass", "AssetClassName"],
+                    title: "Asset Class"
                 },
                 assetIdFilter: {
                     entitySet: "/ZI_VH_ASSET",
                     key: "MasterFixedAsset",
                     columns: [
                         { property: "CompanyCode", label: "Company Code" },
-                        { property: "MasterFixedAsset", label: "Master Fixed Asset" },
+                        { property: "MasterFixedAsset", label: "Asset" },
                         { property: "FixedAssetDescription", label: "Description" }
                     ],
                     searchProperties: ["CompanyCode", "MasterFixedAsset", "FixedAssetDescription"],
-                    title: "Select Fixed Asset"
+                    title: "Fixed Asset"
                 },
                 assetSubnumberFilter: {
                     entitySet: "/ZI_VH_ASSET",
                     key: "FixedAsset",
                     columns: [
                         { property: "CompanyCode", label: "Company Code" },
-                        { property: "MasterFixedAsset", label: "Master Fixed Asset" },
-                        { property: "FixedAsset", label: "Fixed Asset" },
+                        { property: "MasterFixedAsset", label: "Asset" },
+                        { property: "FixedAsset", label: "Subnumber" },
                         { property: "FixedAssetDescription", label: "Description" },
                         { property: "AssetClass", label: "Asset Class" }
                     ],
                     searchProperties: ["CompanyCode", "MasterFixedAsset", "FixedAsset", "FixedAssetDescription", "AssetClass"],
-                    title: "Select Asset Sub Number"
+                    title: "Asset Subnumber"
                 }
             };
             const oSource = oEvent.getSource();
             const oConfig = mValueHelps[oSource.getId().split("--").pop()];
             const aFilters = [];
-            const aCompanyCodes = this.byId("companyCodeFilter").getTokens()
-                .map((oToken) => oToken.getKey());
+            const aCompanyCodes = this.byId("companyCodeFilter").getTokens().map((oToken) => oToken.getKey());
+
+            //const aledgerFilter = this.byId("ledgerFilter").getTokens().map((oToken) => oToken.getKey());
 
             if (["DepreciationArea", "Currency", "MasterFixedAsset", "FixedAsset"].includes(oConfig.key) && aCompanyCodes.length) {
                 aFilters.push(new Filter(aCompanyCodes.map((sCompanyCode) =>
@@ -219,6 +229,9 @@ sap.ui.define([
                     let bConfirmed = false;
                     const oTable = new MTable({
                         mode: "MultiSelect",
+                        // growing: true,
+                        // growingThreshold: 20,
+                        // growingScrollToLoad: true,
                         columns: aColumns
                     });
                     oTable.setModel(oValueHelpModel, "valueHelp");
@@ -272,13 +285,16 @@ sap.ui.define([
                         ok: (oOkEvent) => {
                             aResultTokens = oOkEvent.getParameter("tokens").map((oToken) => {
                                 const oResultToken = new Token({ key: oToken.getKey(), text: oToken.getText() });
+                                oResultToken.setTooltip(oToken.getText());
                                 if (oToken.data("range")) {
                                     oResultToken.data("range", oToken.data("range"));
                                 }
                                 return oResultToken;
                             });
+
                             bConfirmed = true;
                             oDialog.close();
+
                         },
                         cancel: () => oDialog.close(),
                         afterClose: () => {
