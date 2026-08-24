@@ -496,7 +496,7 @@ sap.ui.define([
                 aHeadings.forEach((sHeading) => {
                     const sVal = (oRow[sHeading] !== undefined && oRow[sHeading] !== null && oRow[sHeading] !== "")
                         ? String(oRow[sHeading])
-                        : "N/A";
+                        : "0";
                     aCells.push(new Text({ text: sVal }));
                 });
                 oPivotTable.addItem(new ColumnListItem({ cells: aCells }));
