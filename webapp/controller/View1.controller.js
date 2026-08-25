@@ -19,6 +19,7 @@ sap.ui.define([
 
         onInit() {
             this._iPageSize = 50;
+            this._iODataPageSize = 100;
             this.byId("keyDateFilter").setMaxDate(new Date());
             this.byId("page").setBusyIndicatorDelay(0);
             // Model may not be propagated yet at onInit; defer until route is matched
@@ -95,33 +96,71 @@ sap.ui.define([
 
         _loadData() {
             const sFilter = this._getODataFilterExpression();
-
             const iRequestId = (this._dataRequestId || 0) + 1;
             const oPage = this.byId("page");
             this._dataRequestId = iRequestId;
             oPage.setBusy(true);
 
-            this.getView().getModel().read("/ZI_FI_ASSET_DEPRECIATION", {
-                urlParameters: sFilter ? { "$filter": sFilter } : {},
-                success: (oData) => {
-
+            this._readDataPages(sFilter, iRequestId)
+                .then((aResults) => {
                     if (iRequestId !== this._dataRequestId) {
                         return;
                     }
-
-                    this._aSourceData = oData.results;
+                    this._aSourceData = aResults;
                     this._buildPivotTable(this._aSourceData);
-
                     oPage.setBusy(false);
-
-                },
-                error: () => {
+                })
+                .catch(() => {
                     if (iRequestId === this._dataRequestId) {
                         oPage.setBusy(false);
                         MessageToast.show("Unable to load filtered asset-depreciation data.");
                     }
+                });
+        },
+
+        _readDataPages(sFilter, iRequestId) {
+            const iPageSize = this._iODataPageSize || 100;
+            const oModel = this.getView().getModel();
+            const aResults = [];
+
+            const readPage = (iSkip, iTotal) => new Promise((resolve, reject) => {
+                if (iRequestId !== this._dataRequestId) {
+                    resolve(aResults);
+                    return;
                 }
+
+                const mUrlParameters = {
+                    "$skip": String(iSkip),
+                    "$top": String(iPageSize),
+                    "$inlinecount": "allpages"
+                };
+                if (sFilter) {
+                    mUrlParameters.$filter = sFilter;
+                }
+
+                oModel.read("/ZI_FI_ASSET_DEPRECIATION", {
+                    urlParameters: mUrlParameters,
+                    success: (oData) => {
+                        const aPageResults = oData.results || [];
+                        const iResultTotal = iTotal === undefined && oData.__count !== undefined
+                            ? Number(oData.__count)
+                            : iTotal;
+                        aResults.push(...aPageResults);
+
+                        if (iRequestId !== this._dataRequestId ||
+                            (Number.isFinite(iResultTotal) && aResults.length >= iResultTotal) ||
+                            aPageResults.length < iPageSize) {
+                            resolve(aResults);
+                            return;
+                        }
+
+                        readPage(iSkip + iPageSize, iResultTotal).then(resolve, reject);
+                    },
+                    error: reject
+                });
             });
+
+            return readPage(0);
         },
 
         onValueHelpRequest(oEvent) {
