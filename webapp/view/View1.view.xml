@@ -49,6 +49,7 @@
             <Toolbar class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
                 <Title text="Asset Depreciation"/>
                 <ToolbarSpacer/>
+                <Button id="exportToExcelButton" icon="sap-icon://excel-attachment" text="Depreciation Report" type="Transparent" tooltip="Export to Excel" press=".onExportToExcel" />
                 <RadioButtonGroup id="reportTypeGroup" columns="3" selectedIndex="0">
                     <buttons>
                         <RadioButton text="Monthly"/>

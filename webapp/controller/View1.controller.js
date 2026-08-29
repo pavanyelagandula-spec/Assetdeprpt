@@ -11,8 +11,9 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
-    "sap/m/ColumnListItem"
-], (Controller, JSONModel, Column, Text, ValueHelpDialog, MTable, Token, SearchField, FilterBar, Filter, FilterOperator, MessageToast, ColumnListItem) => {
+    "sap/m/ColumnListItem",
+    "sap/ui/export/Spreadsheet"
+], (Controller, JSONModel, Column, Text, ValueHelpDialog, MTable, Token, SearchField, FilterBar, Filter, FilterOperator, MessageToast, ColumnListItem, Spreadsheet) => {
     "use strict";
 
     return Controller.extend("assetdep.controller.View1", {
@@ -550,6 +551,38 @@ sap.ui.define([
             }
         },
 
+        onExportToExcel() {
+            const aPivotRows = this._aPivotRows || [];
+            const aHeadings = this._aHeadings || [];
+            if (!aPivotRows.length) {
+                MessageToast.show("There is no report data to export.");
+                return;
+            }
+
+            const aColumns = [
+                { label: "Asset", property: "asset_id" },
+                ...aHeadings.map((sHeading) => ({ label: sHeading, property: sHeading }))
+            ];
+            const aExportRows = aPivotRows.map((oRow) => {
+                const oExportRow = { "asset_id": oRow["asset_id"] };
+                aHeadings.forEach((sHeading) => {
+                    oExportRow[sHeading] = (oRow[sHeading] !== undefined && oRow[sHeading] !== null && oRow[sHeading] !== "")
+                        ? oRow[sHeading]
+                        : "0";
+                });
+                return oExportRow;
+            });
+            const oSpreadsheet = new Spreadsheet({
+                workbook: { columns: aColumns },
+                dataSource: aExportRows,
+                fileName: "Depreciation_Forecast_Report.xlsx"
+            });
+
+            oSpreadsheet.build()
+                .catch(() => MessageToast.show("Unable to export the report."))
+                .finally(() => oSpreadsheet.destroy());
+        },
+
         _renderPivotPage() {
             const iPageSize = this._iPageSize || 50;
             const aPivotRows = this._aPivotRows || [];
@@ -567,7 +600,7 @@ sap.ui.define([
                 aHeadings.forEach((sHeading) => {
                     const sVal = (oRow[sHeading] !== undefined && oRow[sHeading] !== null && oRow[sHeading] !== "")
                         ? String(oRow[sHeading])
-                        : "0";
+                        : "$0.00";
                     aCells.push(new Text({ text: sVal }));
                 });
                 oPivotTable.addItem(new ColumnListItem({ cells: aCells }));

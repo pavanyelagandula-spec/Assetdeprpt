@@ -73,7 +73,8 @@
       "libs": {
         "sap.m": {},
         "sap.ui.comp": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.ui.export": {}
       }
     },
     "contentDensities": {
